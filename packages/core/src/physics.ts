@@ -7,29 +7,48 @@ export class PhysicsEngine {
     this.environment = newEnvironment;
   }
 
-  public updateOrganism(organism: Organism, others: Organism[]): void {
+  public updateOrganism(organism: Organism, others: Organism[], foods: Food[]): void {
     if (!organism.state.isAlive) return;
 
-    // Basic metabolism: energy decreases over time
+    // 1. Metabolism
     const metabolismCost = organism.genome.metabolism;
     organism.state.energy -= metabolismCost;
 
-    // Check for death
+    // 2. Death check
     if (organism.state.energy <= 0) {
       organism.state.isAlive = false;
+      return;
     }
 
-    // Age increases
+    // 3. Age
     organism.state.age += 1;
 
-    // Simple Sensory Logic (Placeholder for expansion)
-    // Check distance to other organisms
+    // 4. Movement (Simple random wander based on speed)
+    const dx = (Math.random() * 2 - 1) * organism.genome.speed;
+    const dy = (Math.random() * 2 - 1) * organism.genome.speed;
+    organism.position.x += dx;
+    organism.position.y += dy;
+
+    // 5. Food Consumption
+    for (let i = foods.length - 1; i >= 0; i--) {
+      const food = foods[i];
+      const distDx = organism.position.x - food.position.x;
+      const distDy = organism.position.y - food.position.y;
+      const distance = Math.sqrt(distDx * distDx + distDy * distDy);
+
+      if (distance <= organism.genome.size) {
+        organism.state.energy += food.energyValue;
+        foods.splice(i, 1);
+      }
+    }
+
+    // 6. Simple Sensory/Interaction Logic (Placeholder for expansion)
     for (const other of others) {
       if (other.id === organism.id || !other.state.isAlive) continue;
 
-      const dx = organism.position.x - other.position.x;
-      const dy = organism.position.y - other.position.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
+      const distDx = organism.position.x - other.position.x;
+      const distDy = organism.position.y - other.position.y;
+      const distance = Math.sqrt(distDx * distDx + distDy * distDy);
 
       if (distance <= organism.genome.sensingRange) {
         // Potential interaction (e.g., eating, collision) - to be implemented

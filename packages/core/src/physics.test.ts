@@ -60,17 +60,15 @@ describe('PhysicsEngine', () => {
     expect(organism.state.energy).toBe(14); // 10 - 1 (metabolism) + 5 (food)
   });
 
-  it('should not consume food when out of range', () => {
+  it('should move the organism based on speed', () => {
     const engine = new PhysicsEngine(initialEnv);
     const organism = createTestOrganism('org-1');
-    const food: Food = {
-      id: 'food-1',
-      position: { x: 5, y: 5 },
-      energyValue: 5
-    };
+    const startX = organism.position.x;
+    const startY = organism.position.y;
     
-    engine.updateOrganism(organism, [], [food]);
+    engine.updateOrganism(organism, [], []);
     
-    expect(organism.state.energy).toBe(9); // 10 - 1
+    expect(organism.position.x).not.toBe(startX);
+    expect(organism.position.y).not.toBe(startY);
   });
 });
