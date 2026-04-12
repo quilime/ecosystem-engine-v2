@@ -1,0 +1,16 @@
+{
+  "name": "ecosystem-engine-v2",
+  "private": true,
+  "description": "Terminal Evolutionary Ecosystem Monorepo",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build-and-verify": "./scripts/build-and-verify.sh"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "vitest": "^1.0.0"
+  }
+}
