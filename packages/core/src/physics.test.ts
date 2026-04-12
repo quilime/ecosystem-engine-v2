@@ -51,7 +51,7 @@ describe('PhysicsEngine', () => {
     const organism = createTestOrganism('org-1');
     const food: Food = {
       id: 'food-1',
-      position: { x: 0.5, y: 0.5 },
+      position: { x: 0.1, y: 0.1 },
       energyValue: 5
     };
     
