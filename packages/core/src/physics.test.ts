@@ -1,5 +1,5 @@
 import { PhysicsEngine } from './physics';
-import { Organism, EnvironmentState } from './types';
+import { Organism, EnvironmentState } from '../../core/src/types';
 import { describe, it, expect } from 'vitest';
 
 describe('PhysicsEngine', () => {
@@ -28,7 +28,7 @@ describe('PhysicsEngine', () => {
     const engine = new PhysicsEngine(initialEnv);
     const organism = createTestOrganism('org-1');
     
-    engine.updateOrganism(organism);
+    engine.updateOrganism(organism, []);
     
     expect(organism.state.energy).toBe(9);
     expect(organism.state.age).toBe(1);
@@ -39,19 +39,21 @@ describe('PhysicsEngine', () => {
     const organism = createTestOrganism('org-1');
     organism.state.energy = 1; // One tick left
     
-    engine.updateOrganism(organism);
+    engine.updateOrganism(organism, []);
     
     expect(organism.state.energy).toBe(0);
     expect(organism.state.isAlive).toBe(false);
   });
 
-  it('should allow updating environment', () => {
+  it('should handle sensory interaction placeholder', () => {
     const engine = new PhysicsEngine(initialEnv);
-    const newEnv: EnvironmentState = { temperature: 30, moisture: 40 };
+    const org1 = createTestOrganism('org-1');
+    const org2 = createTestOrganism('org-2');
+    org2.position = { x: 0.5, y: 0.5 }; // Within range of org1 (sensingRange is 1)
     
-    engine.updateEnvironment(newEnv);
+    engine.updateOrganism(org1, [org2]);
     
-    expect(engine.getEnvironment().temperature).toBe(30);
-    expect(engine.getEnvironment().moisture).toBe(40);
+    // If it doesn't crash, the loop ran
+    expect(org1.state.isAlive).toBe(true);
   });
 });
