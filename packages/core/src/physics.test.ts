@@ -1,11 +1,12 @@
 import { PhysicsEngine } from './physics';
-import { Organism, EnvironmentState } from '../../core/src/types';
+import { Organism, EnvironmentState, Food } from '../../core/src/types';
 import { describe, it, expect } from 'vitest';
 
 describe('PhysicsEngine', () => {
   const initialEnv: EnvironmentState = {
     temperature: 25,
-    moisture: 50
+    moisture: 50,
+    foodSources: []
   };
 
   const createTestOrganism = (id: string): Organism => ({
@@ -28,7 +29,7 @@ describe('PhysicsEngine', () => {
     const engine = new PhysicsEngine(initialEnv);
     const organism = createTestOrganism('org-1');
     
-    engine.updateOrganism(organism, []);
+    engine.updateOrganism(organism, [], []);
     
     expect(organism.state.energy).toBe(9);
     expect(organism.state.age).toBe(1);
@@ -37,23 +38,39 @@ describe('PhysicsEngine', () => {
   it('should mark organism as dead when energy reaches zero', () => {
     const engine = new PhysicsEngine(initialEnv);
     const organism = createTestOrganism('org-1');
-    organism.state.energy = 1; // One tick left
+    organism.state.energy = 1;
     
-    engine.updateOrganism(organism, []);
+    engine.updateOrganism(organism, [], []);
     
     expect(organism.state.energy).toBe(0);
     expect(organism.state.isAlive).toBe(false);
   });
 
-  it('should handle sensory interaction placeholder', () => {
+  it('should consume food when within range', () => {
     const engine = new PhysicsEngine(initialEnv);
-    const org1 = createTestOrganism('org-1');
-    const org2 = createTestOrganism('org-2');
-    org2.position = { x: 0.5, y: 0.5 }; // Within range of org1 (sensingRange is 1)
+    const organism = createTestOrganism('org-1');
+    const food: Food = {
+      id: 'food-1',
+      position: { x: 0.5, y: 0.5 },
+      energyValue: 5
+    };
     
-    engine.updateOrganism(org1, [org2]);
+    engine.updateOrganism(organism, [], [food]);
     
-    // If it doesn't crash, the loop ran
-    expect(org1.state.isAlive).toBe(true);
+    expect(organism.state.energy).toBe(14); // 10 - 1 (metabolism) + 5 (food)
+  });
+
+  it('should not consume food when out of range', () => {
+    const engine = new PhysicsEngine(initialEnv);
+    const organism = createTestOrganism('org-1');
+    const food: Food = {
+      id: 'food-1',
+      position: { x: 5, y: 5 },
+      energyValue: 5
+    };
+    
+    engine.updateOrganism(organism, [], [food]);
+    
+    expect(organism.state.energy).toBe(9); // 10 - 1
   });
 });
