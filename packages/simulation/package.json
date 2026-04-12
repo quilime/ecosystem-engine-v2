@@ -1,0 +1,13 @@
+{
+  "name": "simulation",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "lint": "eslint src/**/*.ts"
+  },
+  "devDependencies": {
+    "vitest": "^1.0.0"
+  }
+}
