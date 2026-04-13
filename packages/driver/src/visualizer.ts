@@ -1,4 +1,5 @@
 import { AnsiGrid } from "../../renderer/src/grid";
+import pc from "picocolors";
 
 /**
  * The Driver connects the Simulation logic to the Render primitive.
@@ -29,7 +30,7 @@ export class SimulationDriver {
     for (const food of foodSources) {
       const gx = Math.floor(food.x);
       const gy = Math.floor(food.y);
-      newGrid.setCell(gx, gy, "\x1b[32m.\x1b[0m"); // Green dot for food
+      newGrid.setCell(gx, gy, pc.green(".")); // Green dot for food
     }
 
     // 3. Draw Agents
@@ -37,19 +38,19 @@ export class SimulationDriver {
       const gx = Math.floor(agent.x);
       const gy = Math.floor(agent.y);
       const char = agent.type === 'prey' ? "v" : "P";
-      const color = agent.type === 'prey' ? "\x1b[34m" : "\x1b[31m"; // Blue for prey, Red for predator
-      newGrid.setCell(gx, gy, `${color}${char}\x1b[0m`);
+      const color = agent.type === 'prey' ? pc.blue : pc.red;
+      newGrid.setCell(gx, gy, color(char));
     }
 
     // 4. Print to terminal
     process.stdout.write("\x1Bc"); // Clear terminal screen
-    console.log("\x1b[1m--- Ecosystem Visualizer ---\x1b[0m");
+    console.log(pc.bold("--- Ecosystem Visualizer ---"));
     console.log(newGrid.render());
     console.log("-----------------------------");
     
     // 5. Stats Dashboard
     if (stats) {
-      console.log("\x1b[1m[ Statistics ]\x1b[0m");
+      console.log(pc.bold("[ Statistics ]"));
       Object.entries(stats).forEach(([key, value]) => {
         console.log(`${key.padEnd(15)}: ${value}`);
       });
@@ -60,3 +61,4 @@ export class SimulationDriver {
     }
   }
 }
+

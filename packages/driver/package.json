@@ -8,6 +8,7 @@
     "lint": "eslint src/**/*.ts"
   },
   "devDependencies": {
+    "picocolors": "^1.1.1",
     "vitest": "^1.0.0"
   }
 }
