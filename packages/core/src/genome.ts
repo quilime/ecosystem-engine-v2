@@ -1,10 +1,3 @@
-export interface Genome {
-  speed: number;
-  size: number;
-  metabolism: number;
-  sensingRange: number;
-}
-
 export class GenomeEngine {
   private readonly mutationRate: number;
   private readonly mutationStrength: number;
@@ -28,19 +21,32 @@ export class GenomeEngine {
       size: mutateValue(genome.size),
       metabolism: mutateValue(genome.metabolism),
       sensingRange: mutateValue(genome.sensingRange),
+      attractionStrength: mutateValue(genome.attractionStrength),
+      repulsionStrength: mutateValue(genome.repulsionStrength),
     };
   }
 
   public crossover(parentA: Genome, parentB: Genome): Genome {
-    const crossoverValue = (valA: number, valB: number): number => {
+    const crossoverValueSimple = (valA: number, valB: number): number => {
       return Math.random() < 0.5 ? valA : valB;
     };
 
     return {
-      speed: crossoverValue(parentA.speed, parentB.speed),
-      size: crossoverValue(parentA.size, parentB.size),
-      metabolism: crossoverValue(parentA.metabolism, parentB.metabolism),
-      sensingRange: crossoverValue(parentA.sensingRange, parentB.sensingRange),
+      speed: crossoverValueSimple(parentA.speed, parentB.speed),
+      size: crossoverValueSimple(parentA.size, parentB.size),
+      metabolism: crossoverValueSimple(parentA.metabolism, parentB.metabolism),
+      sensingRange: crossoverValueSimple(
+        parentA.sensingRange,
+        parentB.sensingRange,
+      ),
+      attractionStrength: crossoverValueSimple(
+        parentA.attractionStrength,
+        parentB.attractionStrength,
+      ),
+      repulsionStrength: crossoverValueSimple(
+        parentA.repulsionStrength,
+        parentB.repulsionStrength,
+      ),
     };
   }
 }
