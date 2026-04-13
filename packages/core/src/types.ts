@@ -14,6 +14,8 @@ export interface Genome {
   size: number;
   metabolism: number;
   sensingRange: number;
+  attractionStrength: number;
+  repulsionStrength: number;
 }
 
 export interface Food {
