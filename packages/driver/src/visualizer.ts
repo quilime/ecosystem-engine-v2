@@ -1,19 +1,18 @@
 import { AnsiGrid } from "../../renderer/src/grid";
 import pc from "picocolors";
+import table from "text-table";
 
 /**
  * The Driver connects the Simulation logic to the Render primitive.
  * It handles the mapping of continuous coordinates to the discrete grid.
  */
 export class SimulationDriver {
-  private grid: AnsiGrid;
   private width: number;
   private height: number;
 
   constructor(width: number, height: number) {
     this.width = width;
     this.height = height;
-    this.grid = new AnsiGrid(width, height);
   }
 
   /**
@@ -34,16 +33,20 @@ export class SimulationDriver {
     for (const food of foodSources) {
       const gx = Math.floor(food.x);
       const gy = Math.floor(food.y);
-      newGrid.setCell(gx, gy, pc.green(".")); // Green dot for food
+      if (gx >= 0 && gx < this.width && gy >= 0 && gy < this.height) {
+        newGrid.setCell(gx, gy, pc.green(".")); // Green dot for food
+      }
     }
 
     // 3. Draw Agents
     for (const agent of agents) {
       const gx = Math.floor(agent.x);
       const gy = Math.floor(agent.y);
-      const char = agent.type === "prey" ? "v" : "P";
-      const color = agent.type === "prey" ? pc.blue : pc.red;
-      newGrid.setCell(gx, gy, color(char));
+      if (gx >= 0 && gx < this.width && gy >= 0 && gy < this.height) {
+        const char = agent.type === "prey" ? "v" : "P";
+        const color = agent.type === "prey" ? pc.blue : pc.red;
+        newGrid.setCell(gx, gy, color(char));
+      }
     }
 
     // 4. Print to terminal
@@ -55,9 +58,11 @@ export class SimulationDriver {
     // 5. Stats Dashboard
     if (stats) {
       console.log(pc.bold("[ Statistics ]"));
+      const tableRows = [["Metric", "Value"]];
       Object.entries(stats).forEach(([key, value]) => {
-        console.log(`${key.padEnd(15)}: ${value}`);
+        tableRows.push([key, String(value)]);
       });
+      console.log(table(tableRows));
     } else {
       const preyCount = agents.filter((a) => a.type === "prey").length;
       const predCount = agents.filter((a) => a.type === "predator").length;

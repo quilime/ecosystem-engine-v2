@@ -27,7 +27,7 @@ ts-node simulation_test.ts
 A simple visualizer demonstrating agent movement using mock data.
 
 ```bash
-npx tsx packages/driver/src/demo.ts
+npm run dev
 ```
 
 #### 2. Live Ecosystem Simulation
@@ -35,7 +35,7 @@ npx tsx packages/driver/src/demo.ts
 A real-time simulation of a functioning ecosystem with food spawning and organism evolution.
 
 ```bash
-npx tsx packages/driver/src/live_demo.ts
+npm run dev
 ```
 
 ## 🛠️ Features
