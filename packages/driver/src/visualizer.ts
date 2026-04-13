@@ -22,7 +22,11 @@ export class SimulationDriver {
    * @param foodSources Set of food source positions
    * @param stats Optional statistics to display
    */
-  public render(agents: any[], foodSources: Set<any>, stats?: Record<string, any>): void {
+  public render(
+    agents: any[],
+    foodSources: Set<any>,
+    stats?: Record<string, any>,
+  ): void {
     // 1. Reset the grid
     const newGrid = new AnsiGrid(this.width, this.height);
 
@@ -37,8 +41,8 @@ export class SimulationDriver {
     for (const agent of agents) {
       const gx = Math.floor(agent.x);
       const gy = Math.floor(agent.y);
-      const char = agent.type === 'prey' ? "v" : "P";
-      const color = agent.type === 'prey' ? pc.blue : pc.red;
+      const char = agent.type === "prey" ? "v" : "P";
+      const color = agent.type === "prey" ? pc.blue : pc.red;
       newGrid.setCell(gx, gy, color(char));
     }
 
@@ -47,7 +51,7 @@ export class SimulationDriver {
     console.log(pc.bold("--- Ecosystem Visualizer ---"));
     console.log(newGrid.render());
     console.log("-----------------------------");
-    
+
     // 5. Stats Dashboard
     if (stats) {
       console.log(pc.bold("[ Statistics ]"));
@@ -55,10 +59,9 @@ export class SimulationDriver {
         console.log(`${key.padEnd(15)}: ${value}`);
       });
     } else {
-      const preyCount = agents.filter(a => a.type === 'prey').length;
-      const predCount = agents.filter(a => a.type === 'predator').length;
+      const preyCount = agents.filter((a) => a.type === "prey").length;
+      const predCount = agents.filter((a) => a.type === "predator").length;
       console.log(`Prey: ${preyCount} | Predators: ${predCount}`);
     }
   }
 }
-

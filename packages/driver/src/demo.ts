@@ -4,7 +4,7 @@ import { SimulationDriver } from "./visualizer";
 interface MockAgent {
   x: number;
   y: number;
-  type: 'prey' | 'predator';
+  type: "prey" | "predator";
 }
 
 interface MockFood {
@@ -18,9 +18,9 @@ function runDemo() {
   const driver = new SimulationDriver(width, height);
 
   const agents: MockAgent[] = [
-    { x: 5, y: 5, type: 'prey' },
-    { x: 10, y: 10, type: 'predator' },
-    { x: 15, y: 2, type: 'prey' },
+    { x: 5, y: 5, type: "prey" },
+    { x: 10, y: 10, type: "predator" },
+    { x: 15, y: 2, type: "prey" },
   ];
 
   const foodSources = new Set<MockFood>([
@@ -30,12 +30,12 @@ function runDemo() {
   ]);
 
   console.log("Starting Demo Visualizer...");
-  
+
   let frame = 0;
 
   const interval = setInterval(() => {
     // Move agents randomly
-    agents.forEach(a => {
+    agents.forEach((a) => {
       a.x += (Math.random() - 0.5) * 2;
       a.y += (Math.random() - 0.5) * 2;
 

@@ -6,7 +6,7 @@ import { Genome } from "../../core/src/genome";
 function runRealSimulation() {
   const width = 60;
   const height = 30;
-  
+
   const initialEnv: EnvironmentState = {
     temperature: 25,
     moisture: 0.5,
@@ -62,25 +62,28 @@ function runRealSimulation() {
     // 5. Prepare data for driver
     const organisms = sim.getOrganisms();
     const foods = sim.getFoods();
-    
+
     // We need to map Food objects to the format expected by the driver (which expects position.x/y)
     // Actually, the driver uses food.x and food.y, but our types use food.position.x
     // Let's cast to any to fix the field access in the driver quickly for the demo
-    const foodProxies = foods.map(f => ({ x: f.position.x, y: f.position.y }));
-    
+    const foodProxies = foods.map((f) => ({
+      x: f.position.x,
+      y: f.position.y,
+    }));
+
     // Map organisms to the format expected by the driver (which uses agent.x, agent.y, agent.type)
     // Note: The current driver simulation uses agent.type which isn't in Organism type.
     // We'll use a workaround here.
-    const agentProxies = organisms.map(o => ({
+    const agentProxies = organisms.map((o) => ({
       x: o.position.x,
       y: o.position.y,
-      type: o.genome.size > 2 ? 'predator' : 'prey'
+      type: o.genome.size > 2 ? "predator" : "prey",
     }));
 
     const stats = {
-      "Organisms": organisms.length,
+      Organisms: organisms.length,
       "Food Sources": foods.length,
-      "Frame": frame
+      Frame: frame,
     };
 
     driver.render(agentProxies, new Set(foodProxies as any), stats);
@@ -89,7 +92,7 @@ function runRealSimulation() {
   }, 100);
 
   // Handle clean exit
-  process.on('SIGINT', () => {
+  process.on("SIGINT", () => {
     clearInterval(interval);
     console.log("\nSimulation Ended.");
     process.exit();
