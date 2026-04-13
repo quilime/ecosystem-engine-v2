@@ -13,7 +13,7 @@ To transform the engine from a random-walk simulation into a high-fidelity, inte
 _Goal: Make the simulation readable and informative at a glance._
 
 - [x] **ANSI Colorization**: Implement color-coded entities (e.g., Red Predators, Green Prey, Yellow Food) using `picocolors`.
-- [ ] **Live Dashboard**: Add a persistent terminal UI overlay (using `text-table`) to display real-time statistics:
+- [x] **Live Dashboard**: Expand the terminal UI overlay to include:
   - Population counts (Prey vs. Predator).
   - Average Genome metrics (Avg Speed, Avg Size).
   - Environmental stats (Temperature, Moisture).

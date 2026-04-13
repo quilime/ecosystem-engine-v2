@@ -38,6 +38,14 @@ A real-time simulation of a functioning ecosystem with food spawning and organis
 npm run dev
 ```
 
+#### 2. Live Ecosystem Simulation
+
+A real-time simulation of a functioning ecosystem with food spawning and organism evolution.
+
+```bash
+npm run dev
+```
+
 ## 🛠️ Features
 
 - [x] **Agent-based Modeling**: Simulates predator-prey dynamics.

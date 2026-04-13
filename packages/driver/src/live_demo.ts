@@ -32,6 +32,8 @@ function runRealSimulation() {
       size: 1 + Math.random(),
       metabolism: 0.5 + Math.random() * 0.5,
       sensingRange: 3 + Math.random() * 5,
+      attractionStrength: 0.5,
+      repulsionStrength: 0.5,
     };
 
     sim.addOrganism({
@@ -84,6 +86,14 @@ function runRealSimulation() {
       Organisms: organisms.length,
       "Food Sources": foods.length,
       Frame: frame,
+      "Avg Speed":
+        organisms.reduce((acc, o) => acc + o.genome.speed, 0) /
+          organisms.length || 0,
+      "Avg Size":
+        organisms.reduce((acc, o) => acc + o.genome.size, 0) /
+          organisms.length || 0,
+      Temperature: sim.getEnvironment().temperature.toFixed(1),
+      Moisture: sim.getEnvironment().moisture.toFixed(2),
     };
 
     driver.render(agentProxies, new Set(foodProxies as any), stats);
