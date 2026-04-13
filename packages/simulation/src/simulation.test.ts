@@ -3,12 +3,6 @@ import { Organism, EnvironmentState, Food } from "../../core/src/types";
 import { describe, it, expect } from "vitest";
 
 describe("Simulation", () => {
-  const initialEnv: EnvironmentState = {
-    temperature: 25,
-    moisture: 50,
-    foodSources: [],
-  };
-  // Let's use a clean one
   const cleanEnv: EnvironmentState = {
     temperature: 25,
     moisture: 50,

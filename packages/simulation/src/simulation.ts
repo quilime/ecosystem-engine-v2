@@ -1,9 +1,4 @@
-import {
-  Organism,
-  EnvironmentState,
-  Food,
-  Coordinate,
-} from "../../core/src/types";
+import { Organism, EnvironmentState, Food } from "../../core/src/types";
 import { PhysicsEngine } from "../../core/src/physics";
 import { GenomeEngine } from "../../core/src/genome";
 

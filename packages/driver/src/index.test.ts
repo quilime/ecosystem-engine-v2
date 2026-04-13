@@ -8,17 +8,6 @@ import {
 
 describe("Driver Demo Test", () => {
   it("should run a mini simulation loop", async () => {
-    const env: EnvType = {
-      temperature: 25,
-      moisture: 50,
-      foodSources: [],
-    };
-
-    // This is a simplified test to verify the loop logic works
-    const organisms: OrganismType[] = [];
-    const foods: FoodType[] = [];
-
-    // Simulate a step
     const step = (orgs: OrganismType[], foods: FoodType[]) => {
       orgs.forEach((o) => {
         o.state.energy -= 1;
@@ -27,7 +16,7 @@ describe("Driver Demo Test", () => {
       });
     };
 
-    const testOrg = {
+    const testOrg: OrganismType = {
       id: "test",
       state: { energy: 10, age: 0, isAlive: true },
       position: { x: 0, y: 0 },
