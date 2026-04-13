@@ -39,7 +39,7 @@ npx tsx packages/driver/src/live_demo.ts
 - [x] **Real-time Terminal Visualizer**: An interactive ANSI-based grid visualizer.
 - [x] **Evolutionary Engine**: Integrated `GenomeEngine` for mutation and inheritance.
 - [x] **Live Ecosystem Demo**: A fully integrated simulation loop using the real physics engine.
-- [ ] **Visual Fidelity**: ANSI colorization and a live statistics dashboard.
+- [x] **Visual Fidelity**: ANSI colorization and a live statistics dashboard.
 - [ ] **Intelligent Agents**: Sensor-driven decision making (avoid/attract).
 - [ ] **Dynamic Environments**: Seasonal climate shifts and weather events.
 - [ ] **Advanced Analysis**: Telemetry logging and simulation snapshotting.
