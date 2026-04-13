@@ -24,10 +24,21 @@ npx tsx packages/driver/src/demo.ts
 ```
 
 ## 🛠️ Features
+
+### ✅ Implemented
 - **Agent-based Modeling**: Simulates predator-prey dynamics.
 - **Probabilistic Movement**: Uses Brownian-like random walks for agents.
 - **Resource Management**: Simulates food availability and impact on population.
 - **Real-time Terminal Visualizer**: An interactive ANSI-based grid visualizer.
+- **Evolutionary Engine**: Integrated `GenomeEngine` for mutation and inheritance.
+- **Live Ecosystem Demo**: A fully integrated simulation loop using the real physics engine.
+
+### ⏳ Roadmap (Planned)
+- **Visual Fidelity**: ANSI colorization and a live statistics dashboard.
+- **Intelligent Agents**: Sensor-driven decision making (avoid/attract).
+- **Dynamic Environments**: Seasonal climate shifts and weather events.
+- **Advanced Analysis**: Telemetry logging and simulation snapshotting.
+- **Plugin System**: Extensible architecture for custom physics and genomes.
 
 ## 📊 Simulation Logic
 - **Prey**: Search for food (resources) to survive and reproduce.
