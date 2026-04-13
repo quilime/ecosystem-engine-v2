@@ -17,10 +17,18 @@ Simply run the simulation script using `ts-node`:
 ts-node simulation_test.ts
 ```
 
-### Running the Visualizer Demo
-To see the ecosystem in action with a real-time terminal animation, use `tsx`:
+### Running the Visualizers
+
+#### 1. Mock Demo
+A simple visualizer demonstrating agent movement using mock data.
 ```bash
 npx tsx packages/driver/src/demo.ts
+```
+
+#### 2. Live Ecosystem Simulation
+A real-time simulation of a functioning ecosystem with food spawning and organism evolution.
+```bash
+npx tsx packages/driver/src/live_demo.ts
 ```
 
 ## 🛠️ Features
