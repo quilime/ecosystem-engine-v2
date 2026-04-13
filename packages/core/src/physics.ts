@@ -33,7 +33,6 @@ export class PhysicsEngine {
     organism.position.x += dx;
     organism.position.y += dy;
 
-    // 5. Food Consumption
     for (let i = foods.length - 1; i >= 0; i--) {
       const food = foods[i];
       const distDx = organism.position.x - food.position.x;
@@ -46,7 +45,7 @@ export class PhysicsEngine {
       }
     }
 
-    // 6. Simple Sensory/Interaction Logic (Placeholder for expansion)
+    // 6. Simple Sensory/Interaction Logic
     for (const other of others) {
       if (other.id === organism.id || !other.state.isAlive) continue;
 
@@ -55,7 +54,22 @@ export class PhysicsEngine {
       const distance = Math.sqrt(distDx * distDx + distDy * distDy);
 
       if (distance <= organism.genome.sensingRange) {
-        // Potential interaction (e.g., eating, collision) - to be implemented
+        // Predation: If organism is substantially larger and has energy, it eats the other
+        if (
+          distance <= organism.genome.size &&
+          other.genome.size < organism.genome.size &&
+          organism.state.energy > 10
+        ) {
+          organism.state.energy += other.state.energy * 0.5;
+          other.state.isAlive = false;
+        } else if (
+          distance <= organism.genome.size &&
+          other.genome.size >= organism.genome.size
+        ) {
+          // Collision impact: both lose energy
+          organism.state.energy -= 1;
+          other.state.energy -= 1;
+        }
       }
     }
   }

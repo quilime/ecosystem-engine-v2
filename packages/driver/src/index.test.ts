@@ -1,14 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { Simulation } from "../../simulation/src/simulation";
-import {
-  Organism as OrganismType,
-  EnvironmentState as EnvType,
-  Food as FoodType,
-} from "../../core/src/types";
+import { Organism as OrganismType } from "../../core/src/types";
 
 describe("Driver Demo Test", () => {
   it("should run a mini simulation loop", async () => {
-    const step = (orgs: OrganismType[], foods: FoodType[]) => {
+    const step = (orgs: OrganismType[]) => {
       orgs.forEach((o) => {
         o.state.energy -= 1;
         o.state.age += 1;
@@ -23,7 +18,7 @@ describe("Driver Demo Test", () => {
       genome: { speed: 1, size: 1, metabolism: 1, sensingRange: 1 },
     };
 
-    step([testOrg], []);
+    step([testOrg]);
 
     expect(testOrg.state.energy).toBe(9);
     expect(testOrg.state.age).toBe(1);
