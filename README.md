@@ -12,17 +12,30 @@ A lightweight, high-performance TypeScript simulation engine. This engine demons
 - npm or yarn installed
 
 ### Running the Simulation
-Simply run the script using `ts-node`:
+Simply run the simulation script using `ts-node`:
 ```bash
 ts-node simulation_test.ts
+```
+
+### Running the Visualizer Demo
+To see the ecosystem in action with a real-time terminal animation, use `tsx`:
+```bash
+npx tsx packages/driver/src/demo.ts
 ```
 
 ## 🛠️ Features
 - **Agent-based Modeling**: Simulates predator-prey dynamics.
 - **Probabilistic Movement**: Uses Brownian-like random walks for agents.
 - **Resource Management**: Simulates food availability and impact on population.
+- **Real-time Terminal Visualizer**: An interactive ANSI-based grid visualizer.
 
 ## 📊 Simulation Logic
 - **Prey**: Search for food (resources) to survive and reproduce.
 - **Predators**: Hunt prey to gain energy.
 - **Environment**: Resources regrow over time, creating an ecosystem equilibrium.
+
+## 📖 Implementation Details
+This simulation implements a simplified **Lotka-Volterra** model:
+1. **Energy Flow**: Nutrients enter the system via randomized food spawments.
+2. **Trophic Levels**: Prey consume food; Predators consume prey.
+3. **Population Cycles**: Successful predation leads to predator growth, which subsequently crashes the prey population, creating classic biological oscillations.
