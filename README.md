@@ -43,7 +43,6 @@ npx tsx packages/driver/src/live_demo.ts
 - [ ] **Intelligent Agents**: Sensor-driven decision making (avoid/attract).
 - [ ] **Dynamic Environments**: Seasonal climate shifts and weather events.
 - [ ] **Advanced Analysis**: Telemetry logging and simulation snapshotting.
-- [ ] **Plugin System**: Extensible architecture for custom physics and genomes.
 
 ## 📊 Simulation Logic
 - **Prey**: Search for food (resources) to survive and reproduce.

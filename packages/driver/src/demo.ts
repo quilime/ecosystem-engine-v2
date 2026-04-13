@@ -32,7 +32,6 @@ function runDemo() {
   console.log("Starting Demo Visualizer...");
   
   let frame = 0;
-  const maxFrames = 50;
 
   const interval = setInterval(() => {
     // Move agents randomly
@@ -50,10 +49,8 @@ function runDemo() {
     driver.render(agents, foodSources);
 
     frame++;
-    if (frame >= maxFrames) {
-      clearInterval(interval);
-      setTimeout(() => process.exit(0), 1000);
-    }
+    // Print frame count for reference
+    process.stdout.write(`\rFrame: ${frame}`);
   }, 100);
 }
 
