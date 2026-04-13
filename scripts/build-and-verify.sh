@@ -9,17 +9,15 @@ npm install
 
 # 2. Linting
 echo "🔍 Running Linting (ESLint)..."
-# Note: ESLint might fail if no config is found, but we'll try.
-# npm run lint || echo "⚠️ Linting failed, but continuing..."
+npm run lint || echo "⚠️ Linting failed, but continuing..."
 
 # 3. Type-Check
 echo "🛡️ Running Type-Check (TSC)..."
-# We'll implement npx tsc --noEmit in the next phase, for now just placeholder
-echo "✅ Type-Check passed (Placeholder)"
+npx tsc --noEmit || echo "⚠️ Type-Check failed!"
 
 # 4. Unit Tests
 echo "🧪 Running Unit Tests (Vitest)..."
-# npx vitest run || echo "⚠️ Tests failed!"
+npm test --workspaces || echo "⚠️ Tests failed!"
 
 # 5. Integration Tests
 echo "🔗 Running Integration Tests..."

@@ -1,4 +1,4 @@
-import { Organism, EnvironmentState, Coordinate } from './types';
+import { Organism, EnvironmentState, Food } from "./types";
 
 export class PhysicsEngine {
   constructor(private environment: EnvironmentState) {}
@@ -7,7 +7,11 @@ export class PhysicsEngine {
     this.environment = newEnvironment;
   }
 
-  public updateOrganism(organism: Organism, others: Organism[], foods: Food[]): void {
+  public updateOrganism(
+    organism: Organism,
+    others: Organism[],
+    foods: Food[],
+  ): void {
     if (!organism.state.isAlive) return;
 
     // 1. Metabolism

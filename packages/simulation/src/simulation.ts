@@ -1,6 +1,11 @@
-import { Organism, EnvironmentState, Food, Coordinate } from '../../core/src/types';
-import { PhysicsEngine } from '../../core/src/physics';
-import { GenomeEngine } from '../../core/src/genome';
+import {
+  Organism,
+  EnvironmentState,
+  Food,
+  Coordinate,
+} from "../../core/src/types";
+import { PhysicsEngine } from "../../core/src/physics";
+import { GenomeEngine } from "../../core/src/genome";
 
 export class Simulation {
   private organisms: Map<string, Organism> = new Map();
@@ -49,11 +54,11 @@ export class Simulation {
   private handleReproduction(): void {
     // Simple reproduction: if organism has high energy, it can create an offspring
     const newOrganisms: Organism[] = [];
-    
+
     for (const organism of this.organisms.values()) {
       if (organism.state.isAlive && organism.state.energy > 20) {
         organism.state.energy -= 10; // Cost of reproduction
-        
+
         const offspringGenome = this.genomeEngine.mutate(organism.genome);
         const offspring: Organism = {
           id: `org-${Math.random().toString(36).substr(2, 9)}`,
@@ -62,8 +67,8 @@ export class Simulation {
           state: {
             energy: 10,
             age: 0,
-            isAlive: true
-          }
+            isAlive: true,
+          },
         };
         newOrganisms.push(offspring);
       }

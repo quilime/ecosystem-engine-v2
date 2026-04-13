@@ -27,3 +27,10 @@ export interface EnvironmentState {
   moisture: number;
   foodSources: Food[];
 }
+
+export interface Organism {
+  id: string;
+  position: Coordinate;
+  genome: Genome;
+  state: EntityState;
+}

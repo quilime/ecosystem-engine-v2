@@ -13,7 +13,7 @@ interface OrganismState {
   id: string;
   x: number;
   y: number;
-  age: number택;
+  age: number;
   health: number;
 }
 

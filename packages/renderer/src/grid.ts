@@ -7,7 +7,7 @@ export class AnsiGrid {
     this.width = width;
     this.height = height;
     this.buffer = Array.from({ length: height }, () =>
-      Array.from({ length: width }, () => ' ')
+      Array.from({ length: width }, () => " "),
     );
   }
 
@@ -21,13 +21,11 @@ export class AnsiGrid {
     if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
       return this.buffer[y][x];
     }
-    return ' ';
+    return " ";
   }
 
   public render(): string {
-    return this.buffer
-      .map((row) => row.join(''))
-      .join('\n');
+    return this.buffer.map((row) => row.join("")).join("\n");
   }
 
   public getWidth(): number {

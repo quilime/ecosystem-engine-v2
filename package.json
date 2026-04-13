@@ -6,7 +6,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build-and-verify": "./scripts/build-and-verify.sh"
+    "build-and-verify": "./scripts/build-and-verify.sh",
+    "test": "npm test --workspaces",
+    "lint": "eslint \"packages/**/*.ts\""
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.58.1",
