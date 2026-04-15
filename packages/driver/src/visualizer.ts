@@ -20,11 +20,13 @@ export class SimulationDriver {
    * @param agents Array of agents with positions and types
    * @param foodSources Set of food source positions
    * @param stats Optional statistics to display
+   * @param history Array of historical population counts
    */
   public render(
     agents: any[],
     foodSources: Set<any>,
     stats?: Record<string, any>,
+    history: { organisms: number; foods: number }[] = [],
   ): void {
     // 1. Reset the grid
     const newGrid = new AnsiGrid(this.width, this.height);
@@ -34,8 +36,11 @@ export class SimulationDriver {
       const gx = Math.floor(food.x);
       const gy = Math.floor(food.y);
       if (gx >= 0 && gx < this.width && gy >= 0 && gy < this.height) {
-        newGrid.setCell(gx, gy, pc.green(".")); // Green dot for food
+        newCR = newGrid.setCell(gx, gy, pc.green(".")); // Green dot for food
       }
+    }
+    // ... (rest of logic)
+  }
     }
 
     // 3. Draw Agents
@@ -68,5 +73,10 @@ export class SimulationDriver {
       const predCount = agents.filter((a) => a.type === "predator").length;
       console.log(`Prey: ${preyCount} | Predators: ${predCount}`);
     }
+
+    // 6. Population Trends (Sparkline-like)
+    // Note: This would require passing history to the render method
+    // For now, we just show a placeholder for the next step.
+    console.log(pc.dim("Trend: [ Implementation Pending ]"));
   }
 }

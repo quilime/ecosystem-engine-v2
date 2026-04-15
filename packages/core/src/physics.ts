@@ -27,36 +27,51 @@ export class PhysicsEngine {
     // 3. Age
     organism.state.age += 1;
 
-    // 4. Movement (Simple random wander based on speed)
-    const dxBase = (Math.random() * 2 - 1) * organism.genome.speed;
-    const dyBase = (Math.random() * 2 - 1) * organism.genome.speed;
+    // 4. Movement (Steering-based movement)
+    // 4a. Base Random Wander
+    let dx = (Math.random() * 2 - 1) * organism.genome.speed;
+    let dy = (Math.random() * 2 - 1) * organism.genome.speed;
 
-    const sensoryForceY = this.applySensoryForces(
-      organism,
-      others,
-      foods,
-      dxBase,
-      dyBase,
-    );
+    // 4b. Food Attraction
+    for (const food of foods) {
+      const distDx = food.position.x - organism.position.x;
+      const distDy = food.position.y - organism.position.y;
+      const distance = Math.sqrt(distDx * distDx + distDy * distDy);
 
-    const dx = dxBase;
-    const dy = dyBase + sensoryForceY;
+      if (distance > 0 && distance <= organism.genome.sensingRange) {
+        const strength = organism.genome.attractionStrength / distance;
+        dx += (distDx / distance) * strength;
+        dy += (distDy / distance) * strength;
+      }
+    }
+
+    // 4c. Predator Avoidance (Repulsion from others)
+    for (const other of others) {
+      if (other.id === organism.id || !other.state.isAlive) continue;
+
+      const distDx = organism.position.x - other.position.x;
+      const distDy = organism.position.y - other.position.y;
+      const distance = Math.sqrt(distDx * distDx + distDy * distDy);
+
+      if (distance > 0 && distance <= organism.genome.sensingRange) {
+        const strength = organism.genome.repulsionStrength / distance;
+        dx -= (distDx / distance) * strength;
+        dy -= (distDy / distance) * strength;
+      }
+    }
+
+    // 4d. Apply movement (Cap speed to genome.speed)
+    const totalMovement = Math.sqrt(dx * dx + dy * dy);
+    if (totalMovement > organism.genome.speed) {
+      const scale = organism.genome.speed / totalMovement;
+      dx *= scale;
+      dy *= scale;
+    }
 
     organism.position.x += dx;
     organism.position.y += dy;
 
     // Check for food consumption
-    for (let i = foods.length - 1; i >= 0; i--) {
-      const food = foods[i];
-      const distDx = organism.position.x - food.position.x;
-      const distDy = organism.position.y - food.position.y;
-      const distance = Math.sqrt(distDx * distDx + distDy * distDy);
-
-      if (distance <= organism.genome.size) {
-        organism.state.energy += food.energyValue;
-        foods.splice(i, 1);
-      }
-    }
 
     // 6. Simple Sensory/Interaction Logic
     for (const other of others) {

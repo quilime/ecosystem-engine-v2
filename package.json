@@ -6,7 +6,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build-and-verify": "./scripts/build-and-verify.sh",
+    "dev": "tsx packages/driver/src/live_demo.ts",
+    "build-and-verify": "./scripts/build-and_verify.sh",
     "test": "npm test --workspaces",
     "lint": "eslint \"packages/**/*.ts\""
   },
@@ -18,7 +19,12 @@
     "eslint-plugin-prettier": "^5.5.5",
     "picocolors": "^1.1.1",
     "prettier": "^3.8.2",
-    "typescript": "^5.0.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
     "vitest": "^1.6.1"
+  },
+  "dependencies": {
+    "text-table": "^0.2.0"
   }
 }

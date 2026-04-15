@@ -17,7 +17,6 @@ _Goal: Make the simulation readable and informative at a glance._
   - Population counts (Prey vs. Predator).
   - Average Genome metrics (Avg Speed, Avg Size).
   - Environmental stats (Temperature, Moisture).
-- [ ] **Telemetry Logging**: Implement a logger to export simulation snapshots (CSV/JSON) for post-run analysis.
 - [ ] **Advanced Analytics**: Implement real-time graphing of population dynamics.
 - [ ] **Scenario Loading**: Implement JSON-based scenario presets (e.g., "Arctic", "Desert").
 

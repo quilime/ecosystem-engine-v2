@@ -64,6 +64,7 @@ function runRealSimulation() {
     // 5. Prepare data for driver
     const organisms = sim.getOrganisms();
     const foods = sim.getFoods();
+    const history = sim.getHistory();
 
     // We need to map Food objects to the format expected by the driver (which expects position.x/y)
     // Actually, the driver uses food.x and food.y, but our types use food.position.x
@@ -88,12 +89,20 @@ function runRealSimulation() {
       Frame: frame,
       "Avg Speed":
         organisms.reduce((acc, o) => acc + o.genome.speed, 0) /
-          organisms.length || 0,
+        (organisms.length || 1),
       "Avg Size":
         organisms.reduce((acc, o) => acc + o.genome.size, 0) /
-          organisms.length || 0,
+        (organisms.length || 1),
       Temperature: sim.getEnvironment().temperature.toFixed(1),
       Moisture: sim.getEnvironment().moisture.toFixed(2),
+      "Pop. Trend":
+        history.length > 1
+          ? history[history.length - 1].organisms -
+              history[history.length - 2].organisms >=
+            0
+            ? "↗"
+            : "↘"
+          : "-",
     };
 
     driver.render(agentProxies, new Set(foodProxies as any), stats);

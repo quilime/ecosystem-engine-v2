@@ -47,7 +47,7 @@ npm run dev
 - [x] **Evolutionary Engine**: Integrated `GenomeEngine` for mutation and inheritance.
 - [x] **Live Ecosystem Demo**: A fully integrated simulation loop using the real physics engine.
 - [x] **Visual Fidelity**: ANSI colorization and a live statistics dashboard.
-- [ ] **Intelligent Agents**: Sensor-driven decision making (avoid/attract).
+- [x] **Intelligent Agents**: Sensor-driven decision making (avoid/attract).
 - [ ] **Dynamic Environments**: Seasonal climate shifts and weather events.
 - [ ] **Advanced Analysis**: Telemetry logging and simulation snapshotting.
 
