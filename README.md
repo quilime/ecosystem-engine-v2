@@ -49,7 +49,7 @@ npm run dev
 - [x] **Visual Fidelity**: ANSI colorization and a live statistics dashboard.
 - [x] **Intelligent Agents**: Sensor-driven decision making (avoid/attract).
 - [x] **Dynamic Environments**: Seasonal climate shifts and weather events.
-- [ ] **Advanced Analysis**: Telemetry logging and simulation snapshotting.
+- [x] **Advanced Analysis**: Telemetry logging and simulation snapshotting (Added)
 
 ## 📊 Simulation Logic
 

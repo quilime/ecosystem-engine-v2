@@ -30,9 +30,16 @@ export interface EnvironmentState {
   foodSources: Food[];
 }
 
-export interface Organism {
-  id: string;
-  position: Coordinate;
-  genome: Genome;
-  state: EntityState;
+export interface SimulationSnapshot {
+  timestamp: number;
+  step: number;
+  environment: EnvironmentState;
+  organisms: Organism[];
+  foods: Food[];
+}
+
+export interface TelemetryEvent {
+  timestamp: number;
+  type: "reproduction" | "death" | "weather_event" | "food_spawn";
+  payload: any;
 }
