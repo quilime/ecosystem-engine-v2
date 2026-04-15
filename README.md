@@ -22,15 +22,7 @@ ts-node simulation_test.ts
 
 ### Running the Visualizers
 
-#### 1. Mock Demo
-
-A simple visualizer demonstrating agent movement using mock data.
-
-```bash
-npm run dev
-```
-
-#### 2. Live Ecosystem Simulation
+#### Live Ecosystem Simulation
 
 A real-time simulation of a functioning ecosystem with food spawning and organism evolution.
 
