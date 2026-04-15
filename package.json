@@ -7,6 +7,7 @@
   ],
   "scripts": {
     "dev": "tsx packages/driver/src/live_demo.ts",
+    "test-sim": "ts-node simulation_test.ts",
     "build-and-verify": "./scripts/build-and_verify.sh",
     "test": "npm test --workspaces",
     "lint": "eslint \"packages/**/*.ts\""
