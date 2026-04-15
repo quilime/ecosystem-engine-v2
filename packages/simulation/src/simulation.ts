@@ -8,6 +8,7 @@ export class Simulation {
   private physicsEngine: PhysicsEngine;
   private genomeEngine: GenomeEngine;
   private environment: EnvironmentState;
+  private currentStep: number = 0;
   private history: { organisms: number; foods: number }[] = [];
 
   constructor(initialEnvironment: EnvironmentState) {
@@ -25,7 +26,10 @@ export class Simulation {
   }
 
   public step(): void {
-    // 1. Update Environment
+    this.currentStep++;
+
+    // 1. Update Environment (Seasonal/Weather changes)
+    this.applyEnvironmentalDynamics();
     this.physicsEngine.updateEnvironment(this.environment);
 
     const organismList = Array.from(this.organisms.values());
@@ -42,9 +46,53 @@ export class Simulation {
       }
     }
 
-    // 4. Handle Reproduction (Placeholder logic)
-    // In a real simulation, we'd check energy thresholds or age for reproduction
+    // 4. Handle Reproduction
     this.handleReproduction();
+
+    // 5. Record History
+    this.history.push({
+      organisms: this.popCount(),
+      foods: this.foods.length,
+    });
+
+    // Keep history bounded to prevent memory leaks
+    if (this.history.length > 100) {
+      this.history.shift();
+    }
+  }
+
+  private applyEnvironmentalDynamics(): void {
+    // Seasonal Temperature Cycle (Sinusoidal)
+    // Period of 500 steps
+    const period = 500;
+    const baseTemp = 20;
+    const amplitude = 15;
+    this.environment.temperature =
+      baseTemp +
+      amplitude * Math.sin((2 * Math.PI * this.currentStep) / period);
+
+    // Moisture fluctuation (Random walk/Brownian)
+    this.environment.moisture += (Math.random() - 0.5) * 0.01;
+    this.environment.moisture = Math.max(
+      0,
+      Math.min(1, this.environment.moisture),
+    );
+
+    // Random Weather Events
+    if (Math.random() < 0.01) {
+      // 1% chance per step
+      const eventType = Math.random();
+      if (eventType < 0.5) {
+        // Rain event -> Increases moisture
+        this.environment.moisture = Math.min(
+          1,
+          this.environment.moisture + 0.2,
+        );
+      } else {
+        // Heatwave event -> Increases temperature
+        this.environment.temperature += 10;
+      }
+    }
   }
 
   private handleReproduction(): void {
@@ -52,8 +100,8 @@ export class Simulation {
     const newOrganisms: Organism[] = [];
 
     for (const organism of this.organisms.values()) {
-      if (organism.state.isAlive && organism.state.energy > 20) {
-        organism.state.energy -= 10; // Cost of reproduction
+      if (organism.state.isAlive && organism.state.energy > 30) {
+        organism.state.energy -= 15; // Cost of reproduction
 
         const offspringGenome = this.genomeEngine.mutate(organism.genome);
         const offspring: Organism = {
@@ -61,7 +109,7 @@ export class Simulation {
           position: { ...organism.position },
           genome: offspringGenome,
           state: {
-            energy: 10,
+            energy: 15,
             age: 0,
             isAlive: true,
           },
@@ -75,6 +123,10 @@ export class Simulation {
     }
   }
 
+  private popCount(): number {
+    return this.organisms.size;
+  }
+
   public getOrganisms(): Organism[] {
     return Array.from(this.organisms.values());
   }
@@ -85,40 +137,6 @@ export class Simulation {
 
   public getHistory(): { organisms: number; foods: number }[] {
     return this.history;
-  }
-
-  public step(): void {
-    // 1. Update Environment
-    this.physicsEngine.updateEnvironment(this.environment);
-
-    const organismList = Array.from(this.organisms.values());
-
-    // 2. Update Organisms (Physics, Movement, Consumption)
-    for (const organism of organismList) {
-      this.physicsEngine.updateOrganism(organism, organismList, this.foods);
-    }
-
-    // 3. Handle Death and Cleanup
-    for (const [id, organism] of this.organisms.entries()) {
-      if (!organism.state.isAlive) {
-        this.organisms.delete(id);
-      }
-    }
-
-    // 4. Handle Reproduction (Placeholder logic)
-    // In a real simulation, we'd check energy thresholds or age for reproduction
-    this.handleReproduction();
-
-    // 5. Record History
-    this.history.push({
-      organisms: this.organisms.size,
-      foods: this.foods.length,
-    });
-
-    // Keep history bounded to prevent memory leaks
-    if (this.history.length > 100) {
-      this.history.shift();
-    }
   }
 
   public setEnvironment(env: EnvironmentState): void {
