@@ -36,11 +36,8 @@ export class SimulationDriver {
       const gx = Math.floor(food.x);
       const gy = Math.floor(food.y);
       if (gx >= 0 && gx < this.width && gy >= 0 && gy < this.height) {
-        newCR = newGrid.setCell(gx, gy, pc.green(".")); // Green dot for food
+        newGrid.setCell(gx, gy, pc.green(".")); // Green dot for food
       }
-    }
-    // ... (rest of logic)
-  }
     }
 
     // 3. Draw Agents

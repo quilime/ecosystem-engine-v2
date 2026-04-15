@@ -139,6 +139,10 @@ export class Simulation {
     return this.history;
   }
 
+  public getEnvironment(): EnvironmentState {
+    return this.environment;
+  }
+
   public setEnvironment(env: EnvironmentState): void {
     this.environment = env;
     this.physicsEngine.updateEnvironment(env);
