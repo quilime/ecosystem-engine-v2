@@ -14,10 +14,20 @@ A high-performance ecosystem simulation implemented in TypeScript. This project 
 
 ### Running the Simulation
 
-Simply run the simulation script using `ts-node`:
+Simply run the simulation script using `npm run test-sim`:
 
 ```bash
-ts-node simulation_test.ts
+npm run test-sim
+```
+
+### Running the Visualizers
+
+#### Live Ecosystem Simulation
+
+A real-time simulation of a functioning ecosystem with food spawning and organism evolution.
+
+```bash
+npm run dev
 ```
 
 ### Running the Visualizers
