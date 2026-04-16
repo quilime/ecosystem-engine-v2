@@ -7,7 +7,8 @@ A high-performance ecosystem simulation implemented in TypeScript. This project 
 
 ## Screenshot
 
-<img width="637" height="842" alt="image" src="https://github.com/user-attachments/assets/695e0f4d-eca3-4733-a723-17ef8bf9a1ad" />
+<img width="637" height="842" alt="image" src="https://github.com/user-attachments/assets/af550663-54c5-4d7e-88c7-411099a26f5f" />
+
 
 ## 🚀 Quick Start
 
